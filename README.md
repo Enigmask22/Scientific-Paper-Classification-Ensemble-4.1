@@ -55,15 +55,15 @@ Given an arXiv abstract, predict its primary scientific category. The dataset in
    - Compare across BoW, TF-IDF, and Embeddings.
 
 ## Results
-Below is a template table to record the achieved accuracies (fill after running). Replace the `—` with actual values printed by the script.
+Below is a template table to record the achieved accuracies (fill after running).
 
 | Model                | BoW (Accuracy) | TF-IDF (Accuracy) | Embeddings (Accuracy) |
 |---------------------:|:--------------:|:-----------------:|:---------------------:|
-| Random Forest        |       —        |         —         |          —            |
-| AdaBoost             |       —        |         —         |          —            |
-| Gradient Boosting    |       —        |         —         |          —            |
-| XGBoost              |       —        |         —         |          —            |
-| LightGBM             |       —        |         —         |          —            |
+| Random Forest        |     0.7950     |       0.7750      |        0.8550         |
+| AdaBoost             |     0.6550     |       0.6700      |        0.7950         |
+| Gradient Boosting    |     0.8050     |       0.7950      |        0.8650         |
+| XGBoost              |     0.7850     |       0.7650      |        0.8750         |
+| LightGBM             |     0.7950     |       0.8000      |        0.8750         |
 
 Tips:
 - Embeddings often help on semantic tasks, but tree models on dense embeddings may need parameter tuning (e.g., fewer estimators, learning rate).
@@ -103,5 +103,5 @@ What it does:
 - Tweak learners’ hyperparameters (e.g., `n_estimators`) in helper functions.
 
 ### Notes
-- The notebook `[Code]_Project_4_1_Topic_Modeling_SHAP.ipynb` can be used to extend analysis and explanations (e.g., SHAP-based interpretation for classic models).
+- The notebook `Topic_Modeling_SHAP.ipynb` can be used to extend analysis and explanations (e.g., SHAP-based interpretation for classic models).
 - Ensure adequate memory; embeddings computation can be resource intensive.
