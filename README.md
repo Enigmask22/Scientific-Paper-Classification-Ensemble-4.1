@@ -15,13 +15,11 @@
 
 <!-- Teaser visualization block: summary figures like in a paper -->
 <div align="center">
-  <figure style="margin:0 0 16px 0;">
-    <img src="label_distribution.png" alt="Label distribution" width="31%">
-    <img src="word_count_distribution.png" alt="Word count distribution" width="31%">
-    <img src="top_10_words.png" alt="Top-10 words per class" width="31%">
-    <figcaption><b>Figure 1.</b> Label distribution, text length, and salient keywords.</figcaption>
-  </figure>
-  
+  <img src="label_distribution.png" alt="Label distribution" width="31%">
+  <img src="word_count_distribution.png" alt="Word count distribution" width="31%">
+  <img src="top_10_words.png" alt="Top-10 words per class" width="31%">
+  <br/>
+  <p align="center"><b>Figure 1.</b> Label distribution, text length, and salient keywords.</p>
 </div>
 
 ## 🌟 Key Features
@@ -132,10 +130,9 @@ Given an arXiv abstract, predict its primary scientific category. The dataset in
 ### 🖼️ Performance Visualization
 
 <div align="center">
-  <figure>
-    <img src="model_accuracies_heatmap.png" alt="Model accuracies across vectorization methods" width="85%">
-    <figcaption><b>Figure 2.</b> Test accuracy of nine models across three text representations (Bag-of-Words, TF‑IDF, and Sentence Embeddings). Darker cells indicate higher performance.</figcaption>
-  </figure>
+  <img src="model_accuracies_heatmap.png" alt="Model accuracies across vectorization methods" width="85%">
+  <br/>
+  <p align="center"><b>Figure 2.</b> Test accuracy of nine models across three text representations (Bag-of-Words, TF‑IDF, and Sentence Embeddings). Darker cells indicate higher performance.</p>
 </div>
 
 #### Paper-style analysis (concise)
