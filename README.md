@@ -13,6 +13,17 @@
 
 </div>
 
+<!-- Teaser visualization block: summary figures like in a paper -->
+<div align="center">
+  <figure style="margin:0 0 16px 0;">
+    <img src="label_distribution.png" alt="Label distribution" width="31%">
+    <img src="word_count_distribution.png" alt="Word count distribution" width="31%">
+    <img src="top_10_words.png" alt="Top-10 words per class" width="31%">
+    <figcaption><b>Figure 1.</b> Label distribution, text length, and salient keywords.</figcaption>
+  </figure>
+  
+</div>
+
 ## 🌟 Key Features
 
 ### 🤖 Ensemble Learning Pipeline
@@ -32,7 +43,7 @@
 - **arXiv dataset** - 1000+ high-quality abstracts
 - **Multi-class classification** - Accurate topic classification
 
-## 🛠️ Công nghệ
+## 🛠️ Technologies
 
 ### 🐍 Python Stack
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
@@ -100,7 +111,7 @@ Given an arXiv abstract, predict its primary scientific category. The dataset in
    - Compute accuracy and classification report for each model–vectorizer pair
    - Compare across BoW, TF-IDF, and Embeddings
 
-## 📊 Kết quả
+## 📊 Results
 
 ### 🏆 Performance Comparison
 
@@ -118,26 +129,62 @@ Given an arXiv abstract, predict its primary scientific category. The dataset in
 - **🌳 Tree Models**: Gradient Boosting shows strong baseline performance
 - **⚡ LightGBM**: Fastest training with competitive accuracy
 
+### 🖼️ Performance Visualization
+
+<div align="center">
+  <figure>
+    <img src="model_accuracies_heatmap.png" alt="Model accuracies across vectorization methods" width="85%">
+    <figcaption><b>Figure 2.</b> Test accuracy of nine models across three text representations (Bag-of-Words, TF‑IDF, and Sentence Embeddings). Darker cells indicate higher performance.</figcaption>
+  </figure>
+</div>
+
+#### Paper-style analysis (concise)
+
+1) Objective — This figure summarizes the comparative performance of classical and boosting-based learners under three increasingly semantic text representations. The grid enables a model × representation diagnosis rather than reporting a single best number.
+
+2) Experimental setup — We evaluate KMeans, KNN, Decision Tree, Naive Bayes, Random Forest, SVM, AdaBoost, Gradient Boosting, XGBoost, and LightGBM on an arXiv abstracts subset (5 categories), using identical splits and minimal tuning to reveal representation-driven trends.
+
+3) Global trends —
+- Embeddings consistently lift accuracy for tree/boosting families and SVM, confirming that dense semantic spaces benefit margin- and ensemble-based decision boundaries.
+- TF‑IDF already outperforms Bag‑of‑Words for most discriminative learners, reflecting improved term re-weighting and reduced sparsity.
+
+4) Best-performing configurations —
+- XGBoost/LightGBM with Embeddings obtain the highest accuracies, closely followed by Gradient Boosting and Random Forest on Embeddings.
+- SVM is competitive on TF‑IDF and Embeddings, highlighting the effectiveness of large-margin classifiers on high-dimensional text features.
+
+5) Representation effects —
+- Naive Bayes benefits the least from Embeddings (it assumes conditional independence on sparse counts), while boosted trees gain the most (they exploit non-linear interactions in dense features).
+- KNN degrades on Embeddings compared with TF‑IDF here, likely due to distance concentration in dense spaces without careful scaling/metric selection.
+
+6) Robustness and efficiency —
+- LightGBM reaches near‑top accuracy with favorable training time and memory, making it a strong default for production.
+- Gradient Boosting is a reliable baseline when XGBoost/LightGBM are unavailable.
+
+7) Practical recommendations —
+- If compute allows, prefer Sentence Embeddings with a boosting model (XGBoost or LightGBM) for the best accuracy–cost ratio.
+- When compute is constrained, start with TF‑IDF + Gradient Boosting/Random Forest; upgrade to Embeddings later.
+- Avoid count-based Naive Bayes on embeddings; keep NB for sparse BoW/TF‑IDF baselines.
+
 ### 💡 Optimization Tips
 - **Embeddings**: Often help on semantic tasks, but tree models on dense embeddings may need parameter tuning
 - **Feature Engineering**: Try limiting features or using `max_features` to control dimensionality
 - **Hyperparameter Tuning**: Adjust `n_estimators`, `learning_rate` for better performance
 
-## 🚀 Bắt đầu nhanh
+## 🚀 Quick Start
 
-### 📋 Yêu cầu hệ thống
-- **Python 3.10+** với pip
-- **4GB+ RAM** (khuyến nghị 8GB+ cho embeddings)
-- **Internet connection** (cho Hugging Face datasets)
+### 📋 System Requirements
+- **Python 3.10+** with pip
+- **4GB+ RAM** (8GB+ recommended for embeddings)
+- **Internet connection** (for Hugging Face datasets)
 
-### ⚡ Cài đặt tự động
+### ⚡ Automated Setup
 
 ```bash
 # 1. Clone repository
 git clone <repository-url>
 cd scientific-paper-classification
 
-# 2. Tạo virtual environment
+# 2. Create a virtual environment
 python -m venv venv
 
 # Windows
@@ -145,7 +192,7 @@ venv\Scripts\activate
 # macOS/Linux  
 source venv/bin/activate
 
-# 3. Cài đặt dependencies
+# 3. Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -155,36 +202,36 @@ pip install -r requirements.txt
 <summary><strong>🐍 Python Dependencies Issues</strong></summary>
 
 ```bash
-# Nếu PyTorch/LightGBM build fails trên Windows:
-# Cài đặt Microsoft C++ Build Tools
-# Hoặc sử dụng pre-built wheels:
+# If PyTorch/LightGBM build fails on Windows:
+# Install Microsoft C++ Build Tools
+# Or use pre-built wheels:
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 pip install lightgbm --only-binary=all
 ```
 </details>
 
-### 🏃‍♂️ Chạy ứng dụng
+### 🏃‍♂️ Run the application
 
 ```bash
-# Chạy pipeline hoàn chỉnh
+# Run the full pipeline
 python main.py
 ```
 
-**Quá trình thực hiện:**
-- 📥 Downloads và cache Hugging Face dataset
-- 🔄 Samples và preprocesses 1,000 abstracts  
-- 🧮 Builds BoW, TF-IDF, và embeddings
+**What it does:**
+- 📥 Downloads and caches the Hugging Face dataset
+- 🔄 Samples and preprocesses 1,000 abstracts  
+- 🧮 Builds BoW, TF-IDF, and embeddings
 - 🤖 Trains RandomForest, AdaBoost, GradientBoosting, XGBoost, LightGBM
-- 📊 Prints accuracy cho mỗi configuration
+- 📊 Prints accuracy for each configuration
 
 ### 🎛️ Customization
 
 ```python
-# Thay đổi categories trong main.py
+# Change categories in `main.py`
 CATEGORIES_TO_SELECT = ['astro-ph', 'cond-mat', 'cs', 'math', 'physics']
 
-# Điều chỉnh sample size
-if len(samples) >= 1000:  # Thay đổi số lượng samples
+# Adjust sample size
+if len(samples) >= 1000:  # Change the number of samples
     break
 
 # Switch embedding model
@@ -195,9 +242,9 @@ def train_and_test_random_forest(..., n_estimators: int = 100):
 ```
 
 ### 📚 Extended Analysis
-- **Jupyter Notebook**: `Topic_Modeling_SHAP.ipynb` cho SHAP-based interpretation
-- **Memory Requirements**: Embeddings computation có thể tốn nhiều RAM
-- **GPU Support**: Có thể sử dụng GPU cho sentence transformers
+- **Jupyter Notebook**: `Topic_Modeling_SHAP.ipynb` for SHAP-based interpretation
+- **Memory Requirements**: Embeddings computation may require significant RAM
+- **GPU Support**: You can use a GPU for sentence transformers
 
 ## 🧪 Testing
 
@@ -240,30 +287,30 @@ scientific-paper-classification/
 - **Models**: ~50MB total
 - **Peak RAM**: ~2GB during embeddings
 
-## 🤝 Đóng góp
+## 🤝 Contributions
 
-Chúng tôi hoan nghênh mọi đóng góp! 
+We welcome contributions!
 
 ### 📝 Development Workflow
-1. Fork repository
-2. Tạo feature branch: `git checkout -b feature/amazing-feature`
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push branch: `git push origin feature/amazing-feature`
-5. Tạo Pull Request
+4. Push the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
 ### 🎨 Code Standards
 - **Python**: PEP 8 + Black formatter
 - **Commits**: Conventional Commits
-- **Documentation**: Docstrings cho mọi function
-- **Testing**: Unit tests cho critical functions
+- **Documentation**: Docstrings for all functions
+- **Testing**: Unit tests for critical functions
 
 ## 📄 License
 
-MIT License - xem [LICENSE](LICENSE) để biết chi tiết.
+MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-- [Hugging Face](https://huggingface.co/) - Datasets và Transformers library
+- [Hugging Face](https://huggingface.co/) - Datasets and Transformers library
 - [Scikit-learn](https://scikit-learn.org/) - Machine learning framework
 - [XGBoost](https://xgboost.readthedocs.io/) - Gradient boosting framework
 - [LightGBM](https://lightgbm.readthedocs.io/) - Microsoft's gradient boosting
@@ -274,11 +321,11 @@ MIT License - xem [LICENSE](LICENSE) để biết chi tiết.
 
 <div align="center">
 
-**Được phát triển với ❤️ bởi AI Vietnam Team**
+**Built with ❤️ by the Team**
 
 [![GitHub Stars](https://img.shields.io/github/stars/your-repo/scientific-paper-classification?style=social)](https://github.com/your-repo/scientific-paper-classification)
 [![GitHub Forks](https://img.shields.io/github/forks/your-repo/scientific-paper-classification?style=social)](https://github.com/your-repo/scientific-paper-classification/fork)
 
-[⭐ Star repo này nếu nó hữu ích!](https://github.com/your-repo/scientific-paper-classification)
+[⭐ Star this repo if you find it useful!](https://github.com/your-repo/scientific-paper-classification)
 
 </div>
